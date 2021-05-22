@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story</title>
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/splash.css">
+    <link rel="stylesheet" href="../assets/styles/story.css">
+</head>
+
+<body>
+
+    <div class="alpha-container">
+        <h1>Story</h1>
+        <picture class="assistance tooltip" data-name="Céline">
+            <img src="../assets/faces/assistance.svg" alt="assistance">
+        </picture>
+        <div class="enter-name none">
+            <form>
+                <div class="input-group">
+                    <input required placeholder=" " type="text">
+                    <p>Your Name *</p>
+                </div>
+                <div class="gender-container">
+                    <picture class="tooltip" data-name="Woman">
+                        <img class="gender" src="../assets/faces/woman.svg" alt="woman">
+                    </picture>
+                    <picture class="tooltip" data-name="Man">
+                        <img class="gender" src="../assets/faces/man.svg" alt="man">
+                    </picture>
+                </div>
+                <button>Continue</button>
+            </form>
+        </div>
+        <div class="ballon">
+            <p class="text">
+
+            </p>
+            <button class="got-it" onclick="enterName()">Got it</button>
+        </div>
+    </div>
+    <script src="../notification-controller.js"></script>
+    <script type="module">
+        import { save } from '../utils.js'
+        import { texts } from '../assets/data/texts.js'
+        window.addEventListener('DOMContentLoaded', _ => {
+            const form = document.querySelector('form')
+            let gender
+            const code = `${localStorage['language']}`
+            document.querySelector('.text').innerHTML = texts[`story${code}`]
+            document.querySelector('.gender-container').addEventListener('click', e => {
+                if (document.querySelector('.gender.active-gender')) {
+                    document.querySelector('.gender.active-gender').classList.remove('active-gender')
+                }
+                document.dispatchEvent(customNotificationEvent(`${e.target.alt} selected now`))
+                gender = e.target.alt
+                e.target.classList.add('active-gender')
+            })
+            document.querySelector('.got-it').onclick = function () {
+                const ballon = document.querySelector('.ballon')
+                const enterName = document.querySelector('.enter-name')
+                ballon.classList.add('hide')
+                ballon.addEventListener('transitionend', _ => {
+                    ballon.classList.add('none')
+                    enterName.classList.remove('none')
+                    setTimeout(() => {
+                        enterName.classList.add('active')
+                    }, 300)
+                })
+            }
+
+            form.onsubmit = function (e) {
+                e.preventDefault()
+                const name = document.querySelector('input').value
+                if (!document.querySelector('.gender.active-gender')) {
+                    document.dispatchEvent(customNotificationEvent(`Please choose a gender before the start`))
+                } else {
+                    save('user', JSON.stringify({ name, gender }))
+                    window.location.href = './rooms/office.html'
+                }
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

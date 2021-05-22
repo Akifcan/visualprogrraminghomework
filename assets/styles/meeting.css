@@ -1,0 +1,31 @@
+.meetings-container {
+  display: flex;
+  max-height: 20rem;
+  overflow-y: scroll;
+  width: 100%;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+  display: none;
+}
+.meetings {
+  display: none;
+}
+.meeting-result {
+  display: none;
+}
+.meetings-container.active,
+.meetings.active,
+.meeting-result.active {
+  display: block;
+}
+
+.meeting button {
+  cursor: pointer;
+  margin: 2rem;
+  padding: 0.5rem;
+}
+
+.meeting {
+  border-bottom: 3px solid whitesmoke;
+}

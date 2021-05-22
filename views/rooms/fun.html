@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun</title>
+    <link rel="stylesheet" href="../../assets/styles/styles.css">
+</head>
+
+<body>
+    <app-header></app-header>
+    <app-footer></app-footer>
+    <app-card></app-card>
+    <app-question></app-question>
+    <div class="fab tooltip" data-name="Shopping">
+        <img src="../../assets/icons/online-shopping.svg" alt="">
+    </div>
+    <div class="background" style="background-image: url(../../assets/office/rest.jpg);">
+    </div>
+    <script src="../../notification-controller.js"></script>
+    <script type="module" src="../../components/AppCard.js"></script>
+    <script type="module" src="../../components/AppQuestion.js"></script>
+    <script type="module" src="../../components/AppHeader.js"></script>
+    <script type="module" src="../../components/AppFooter.js"></script>
+    <script type="module">
+        import { get, save } from '../../utils.js'
+        save('modalOpen', "false")
+        document.addEventListener('DOMContentLoaded', _ => {
+            document.querySelector('.fab').addEventListener('click', _ => {
+                window.location.href = '../shopping.html'
+            })
+        })
+    </script>
+</body>
+
+</html>

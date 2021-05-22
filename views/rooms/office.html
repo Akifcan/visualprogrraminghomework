@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office</title>
+    <link rel="stylesheet" href="../../assets/styles/styles.css">
+    <link rel="stylesheet" href="../../assets/styles/team.css">
+</head>
+
+<body>
+    <app-header></app-header>
+    <app-footer></app-footer>
+    <app-card></app-card>
+    <app-question></app-question>
+    <app-actions>
+        <div class="team" slot="content">
+            <!-- <div class="team-member">
+                <div class="avatar">
+                    <img src="../../assets/faces/030-female.svg" alt="">
+                </div>
+                <div class="info">
+                    <h3>name</h3>
+                    <p>title</p>
+                </div>
+            </div> -->
+        </div>
+    </app-actions>
+    <div class="background" style="background-image: url(../../assets/office/office.jpg);">
+    </div>
+    <div class="fab tooltip" data-name="Team Members">
+        <img src="../../assets/faces/030-female.svg" alt="">
+    </div>
+    <script src="../../notification-controller.js"></script>
+    <script type="module" src="../../components/AppCard.js"></script>
+    <script type="module" src="../../components/AppActions.js"></script>
+    <script type="module" src="../../components/AppQuestion.js"></script>
+    <script type="module" src="../../components/AppHeader.js"></script>
+    <script type="module" src="../../components/AppFooter.js"></script>
+    <script type="module">
+        import { team } from '../../assets/data/team.js'
+        import { texts } from '../../assets/data/texts.js'
+        import { get, save, preferredLanguage, resetGame } from '../../utils.js'
+        document.addEventListener('DOMContentLoaded', _ => {
+            save('modalOpen', "false")
+            if (!localStorage['status']) {
+                console.log('no');
+                if (!localStorage['language']) {
+                    localStorage['language'] = 'tr'
+                }
+                if (!localStorage['firstQuestion']) {
+                    localStorage['firstQuestion'] = 'true'
+                }
+                resetGame(false, false)
+                localStorage['ownProducts'] = JSON.stringify([])
+            }
+            if (localStorage['status']) {
+                console.log(preferredLanguage());
+                document.querySelector('.fab').setAttribute('data-name', texts[`myTeam${preferredLanguage()}`])
+                document.querySelector('.fab').addEventListener('click', _ => {
+                    save('modalOpen', true)
+                    document.querySelector('app-actions').shadowRoot.querySelector('.actions').classList.toggle('active')
+                    document.querySelector('.team').innerHTML = team.map((member, index) => {
+                        return `
+                            <div class="team-member" style="animation: membersIn 250ms ${index}s linear forwards">
+                                <div class="avatar">
+                                    <img src="../../assets/faces/${member.image}" alt="${member.name}">
+                                </div>
+                                <div class="info">
+                                    <h3>${member.name}</h3>
+                                    <p>${member.title}</p>
+                                </div>
+                            </div>
+                        `
+                    }).join('')
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

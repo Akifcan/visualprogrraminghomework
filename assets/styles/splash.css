@@ -1,0 +1,58 @@
+.logo {
+  text-align: center;
+  pointer-events: none;
+  font-size: 4.5rem;
+  transform: scale(4) translateY(0);
+  animation: logoIn 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+.text {
+  pointer-events: none;
+  transform: translateY(100%);
+  font-size: 1.4rem;
+  opacity: 0;
+  animation: textIn 250ms 250ms linear forwards;
+}
+
+.flags {
+  margin: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+img {
+  cursor: pointer;
+  width: 5rem;
+  opacity: 0;
+  transform: scale(0);
+  animation: flagsIn 250ms 450ms linear forwards;
+}
+
+img:nth-child(1) {
+  animation-delay: 650ms;
+}
+img:nth-child(3) {
+  animation-delay: 750ms;
+}
+
+@keyframes flagsIn {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes textIn {
+  to {
+    opacity: 1;
+    transform: translateY(-40%);
+  }
+}
+
+@keyframes logoIn {
+  to {
+    transform: translateY(-20%) scale(1);
+  }
+}

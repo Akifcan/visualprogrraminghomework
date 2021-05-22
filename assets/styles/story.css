@@ -1,0 +1,81 @@
+p {
+  text-align: center;
+  max-width: 60%;
+}
+
+.ballon {
+  display: flex;
+  align-items: center;
+  transition: transform 250ms linear;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.text {
+  margin: 6rem;
+  background-color: var(--sea-color);
+  font-size: 1.2rem;
+  padding: 1rem;
+  border-top-right-radius: 3rem;
+  font-weight: lighter;
+}
+
+.assistance {
+  position: absolute;
+  right: 5%;
+  top: 20%;
+}
+
+.got-it {
+  transform: translateY(-80%);
+}
+button {
+  cursor: pointer;
+  background-color: var(--sea-color);
+  padding: 0.4rem 4rem;
+  color: white;
+  border-radius: 0.4rem;
+  border: none;
+  font-size: 1.4rem;
+  transition: transform 250ms linear;
+  border: 2px solid whitesmoke;
+}
+
+.got-it:hover {
+  transform: scale(1.2) translateY(-80%);
+}
+
+.hide {
+  transform: scale(0);
+}
+
+.gender-container {
+  display: flex;
+  gap: 2rem;
+}
+
+form {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.enter-name {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 250ms linear;
+  transform: scale(0);
+}
+.enter-name.active {
+  transform: scale(1);
+}
+
+.active-gender {
+  outline-offset: 10px;
+  outline: 3px solid var(--sea-color);
+}

@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Play&display=swap");
+:root {
+  --sea-color: #006994;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins";
+}
+body {
+  background-color: rgb(189, 178, 178);
+}
+
+a {
+  color: inherit;
+}
+
+.alpha-container {
+  gap: 2rem;
+  min-height: 100vh;
+  background-color: #333;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.alpha-container::before {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.none {
+  display: none !important;
+}
+
+.input-group {
+  height: 3.5em;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+.input-group input {
+  border-radius: 0.5rem;
+  outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 5px solid var(--sea-color);
+  width: 100%;
+  height: 100%;
+  padding: 0 0.5rem;
+}
+.input-group p {
+  pointer-events: none;
+  position: absolute;
+  color: black;
+  z-index: 2;
+  font-size: 0.8rem;
+  padding: 0 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 250ms linear;
+  transform-origin: left;
+}
+
+.input-group input:focus + p,
+.input-group input:not(:placeholder-shown) + p {
+  color: grey;
+  top: 3%;
+  padding: 0 0.5rem;
+  transform: scale(0.8);
+}
+
+.input-group input:not(:valid) {
+  border: 5px solid crimson;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip:hover::before {
+  color: white;
+  transform: scale(1);
+  opacity: 1;
+}
+
+.tooltip::before {
+  transition: 250ms linear;
+  transform-origin: bottom;
+  top: -60%;
+  z-index: 2;
+  opacity: 0;
+  left: 0%;
+  border-radius: 0.4rem;
+  transform: scale(0);
+  background-color: var(--sea-color);
+  padding: 0.6rem;
+  content: attr(data-name);
+  position: absolute;
+}
+
+.notification {
+  position: fixed;
+  z-index: 20;
+  transform: translateY(-100%);
+  transition: transform 250ms linear;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  color: white;
+  background-color: var(--sea-color);
+}
+
+.notification.active {
+  transform: translateY(0);
+}
+
+.background {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.profile-image {
+  width: 5rem;
+}
+
+.fab.tooltip::before {
+  top: -150%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.fab {
+  cursor: pointer;
+  position: absolute;
+  z-index: 20;
+  bottom: 20%;
+  right: 10%;
+  background: var(--sea-color);
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--sea-color);
+  background-size: cover;
+  border: 3px solid white;
+}
+
+.fab img {
+  width: 3rem;
+}

@@ -1,0 +1,33 @@
+{
+  "name": "managecompany",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.seaapi.managecompany",
+    "mac": {
+      "category": "com.seaapi.managecompany.game"
+    },
+    "win": {
+      "target": "portable"
+    },
+    "portable": {
+      "unicode": false,
+      "artifactName": "managecompany.exe"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^12.0.7",
+    "electron-builder": "^22.10.5"
+  },
+  "dependencies": {
+    "electron-reload": "^1.5.0"
+  }
+}

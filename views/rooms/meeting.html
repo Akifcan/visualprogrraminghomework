@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting</title>
+    <link rel="stylesheet" href="../../assets/styles/styles.css">
+    <link rel="stylesheet" href="../../assets/styles/meeting.css">
+</head>
+
+<body>
+    <app-header></app-header>
+    <app-footer></app-footer>
+    <app-card>
+    </app-card>
+    <app-actions>
+        <div slot="content">
+            <div class="meetings-container">
+                <h3>Meetings Topics</h3>
+                <div class="meeting-result">
+                    <p id="result-text"></p>
+                    <button id="close-result">Okay</button>
+                </div>
+                <div class="meetings">
+                    <!-- <div class="meeting">
+                        <h4>Talk about expenses</h4>
+                        <button class="meeting-button">Talk Now 🤝</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </app-actions>
+    <app-question></app-question>
+    <div class="background" style="background-image: url(../../assets/office/meeting.jpg);">
+    </div>
+    <div class="fab tooltip" data-name="Meeting">
+        <img src="../../assets/icons/board-meeting.svg" alt="">
+    </div>
+    <script src="../../notification-controller.js"></script>
+    <script type="module" src="../../components/AppCard.js"></script>
+    <script type="module" src="../../components/AppActions.js"></script>
+    <script type="module" src="../../components/AppQuestion.js"></script>
+    <script type="module" src="../../components/AppHeader.js"></script>
+    <script type="module" src="../../components/AppFooter.js"></script>
+
+    <script type="module">
+        import { get, trueOrFalse, save, preferredLanguage } from '../../utils.js'
+        import { meetingTopics } from '../../assets/data/meeting.js'
+        document.addEventListener('DOMContentLoaded', _ => {
+            save('modalOpen', "false")
+            const meetingsContainer = document.querySelector('.meetings-container')
+            const meetings = document.querySelector('.meetings')
+            const meetingResult = document.querySelector('.meeting-result')
+
+            document.getElementById('close-result').addEventListener('click', _ => {
+                document.querySelector('app-actions').shadowRoot.querySelector('.actions').classList.remove('active')
+                meetingsContainer.classList.remove('active')
+                meetings.classList.remove('active')
+                meetingResult.classList.remove('active')
+                save('modalOpen', !get('modalOpen'))
+            })
+
+            meetings.classList.add('active')
+            meetingTopics.forEach(topic => {
+                const meeting = document.createElement('div')
+                meeting.classList.add('meeting')
+
+                const title = document.createElement('h3')
+                const button = document.createElement('button')
+
+                title.textContent = topic[preferredLanguage()]
+                button.textContent = `Toplantıya başlayın 🤝 🗣🗣`
+
+                button.addEventListener('click', _ => {
+                    document.dispatchEvent(customNotificationEvent(`Toplantı başladı...`))
+                    meetingsContainer.classList.remove('active')
+                    document.querySelector('app-actions').shadowRoot.querySelector('.actions').classList.remove('active')
+                    setTimeout(() => {
+                        const result = trueOrFalse()
+                        meetingsContainer.classList.add('active')
+                        meetings.classList.remove('active')
+                        meetingResult.classList.add('active')
+                        document.querySelector('app-actions').shadowRoot.querySelector('.actions').classList.add('active')
+                        const resultObj = get('status')
+                        if (result) {
+                            resultObj.directors += 10;
+                            document.getElementById('result-text').textContent = 'Toplantınız olumlu geçti'
+                        } else {
+                            resultObj.directors -= 30;
+                            document.getElementById('result-text').textContent = 'Toplantınızda anlaşmazlıklar yaşandı. İşler kötü gitti.'
+                        }
+                        save('status', JSON.stringify(resultObj))
+                        document.querySelector('app-footer').shadowRoot.getElementById('directors').textContent = resultObj.directors + '%'
+                        document.querySelector('app-footer').shadowRoot.getElementById('directors').style.animation = 'scaleText 500ms linear'
+                        setTimeout(() => {
+                            document.querySelector('app-footer').shadowRoot.getElementById('directors').style.animation = ''
+                        }, 500)
+                    }, 2000)
+                })
+
+                meeting.appendChild(title)
+                meeting.appendChild(button)
+                meetings.appendChild(meeting)
+
+            })
+
+
+            document.querySelector('.fab').addEventListener('click', _ => {
+                meetingsContainer.classList.add('active')
+                save('modalOpen', !get('modalOpen'))
+                meetings.classList.add('active')
+                document.querySelector('app-actions').shadowRoot.querySelector('.actions').classList.toggle('active')
+
+            })
+        })
+    </script>
+</body>
+
+</html>

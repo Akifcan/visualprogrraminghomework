@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping</title>
+    <link rel="stylesheet" href="../assets/styles/shopping.css">
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+</head>
+
+<body>
+    <header>
+        <h3 class="logo">Shop</h3>
+        <input id="search" type="text" placeholder="Search">
+        <b class="amount"></b>
+        <a href="./rooms/fun.html">
+            <button>BACK</button>
+        </a>
+    </header>
+    <div class="container">
+        <div class="own-products product-container">
+        </div>
+        <div class="buy-products product-container active">
+        </div>
+    </div>
+
+    <script src="../notification-controller.js"></script>
+    <script type="module">
+        import { get, save } from '../utils.js'
+        import { products } from '../assets/data/products.js'
+        document.addEventListener('DOMContentLoaded', _ => {
+            const search = document.getElementById('search')
+            createProducts(products, '.buy-products', 'buy')
+            createProducts(get('ownProducts'), '.own-products', 'sell')
+            document.querySelector('.amount').textContent = get('status').money + '$'
+            console.log(search);
+            search.addEventListener('keyup', _ => {
+                console.log(search.value)
+
+                const filteredOwn = get('ownProducts').filter(item => item.name.includes(search.value))
+                const filteredProducts = products.filter(item => item.name.includes(search.value))
+                console.log(filteredProducts)
+                createProducts(filteredProducts, '.buy-products', 'buy')
+                createProducts(filteredOwn, '.own-products', 'sell')
+
+            })
+
+            document.querySelector('.buy-products').addEventListener('click', e => {
+                if (e.target.tagName == 'DIV') {
+                    if (document.querySelector('.own-products').classList.contains('active')) {
+                        document.querySelector('.own-products').classList.remove('active')
+                        document.querySelector('.buy-products').classList.add('active')
+                    }
+
+                }
+            })
+
+            document.querySelector('.own-products').addEventListener('click', e => {
+                if (e.target.tagName == 'DIV') {
+                    if (document.querySelector('.buy-products').classList.contains('active')) {
+                        document.querySelector('.buy-products').classList.remove('active')
+                        document.querySelector('.own-products').classList.add('active')
+                    }
+                }
+            })
+
+
+            function createProducts(products, element, pstatus) {
+                document.querySelector(element).innerHTML = ''
+                document.querySelector(element).innerHTML += `<div class="accordion-title">${pstatus}</div>`
+                products.forEach(product => {
+                    const div = document.createElement('div')
+                    div.classList.add('product-list')
+                    const img = document.createElement('img')
+                    const h3 = document.createElement('h3')
+                    const h4 = document.createElement('h4')
+                    const button = document.createElement('button')
+
+                    img.src = `../assets/items/${product.image}`
+                    h3.textContent = product.name
+                    h4.textContent = product.price + '$'
+                    if (product.price > 0 && pstatus == 'buy') {
+                        button.textContent = 'Satın Al'
+                    }
+                    if (product.price > 0 && pstatus == 'sell') {
+                        button.textContent = 'Sat'
+                    }
+                    if (product.price <= 0 && pstatus == 'buy') {
+                        button.textContent = 'Sahiplen'
+                    }
+                    if (product.price <= 0 && pstatus == 'sell') {
+                        button.textContent = 'Sahiplenlendir'
+                    }
+
+                    div.appendChild(img)
+                    div.appendChild(h3)
+                    if (product.price > 0) {
+                        div.appendChild(h4)
+                    }
+                    div.appendChild(button)
+
+                    button.addEventListener('click', _ => {
+                        let products = get('ownProducts')
+                        const status = get('status')
+                        if (pstatus == 'buy') {
+                            if (get('status').money > 0) {
+                                if (get('status').money > product.price) {
+                                    status.money -= product.price
+                                    status.team += 10
+                                    products.push({ ...product })
+                                    save('ownProducts', JSON.stringify(products))
+                                    save('status', JSON.stringify(status))
+                                    document.dispatchEvent(customNotificationEvent(`Team Relationship +10 👨‍💻👩‍💻👩‍💻👩‍💻`))
+                                } else {
+                                    document.dispatchEvent(customNotificationEvent(`You don't have amount balance for that`))
+                                }
+                            } else {
+                                console.log('NO!')
+                            }
+                        } else if (pstatus == 'sell') {
+                            if (get('status').team >= 0) {
+                                products.splice(products.find(item => item.name == product.name), 1)
+                                console.log(products.length);
+                                status.money += product.price
+                                status.team -= 10
+                                save('ownProducts', JSON.stringify(products))
+                                save('status', JSON.stringify(status))
+                                document.dispatchEvent(customNotificationEvent(`Team Relationship -10 😥. Earn: +${product.price}$ `))
+                            } else {
+                                console.log('NO')
+                            }
+                        }
+                        document.querySelector('.amount').textContent = get('status').money + '$'
+                        createProducts(get('ownProducts'), '.own-products', 'sell')
+                    })
+
+                    document.querySelector(element).appendChild(div)
+                })
+            }
+
+        })
+    </script>
+</body>
+
+</html>

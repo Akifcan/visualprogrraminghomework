@@ -13,7 +13,7 @@ export const questions = [
     {
         tr: "Bir stajyeriniz projeyi istediğiniz gibi geliştirmemiş",
         en: "An intern didn't develop project as you want",
-        fr: "Un stagiaire n'a pas développé de projet comme vous le souhaitez",
+        fr: "Une stagiaire n'a pas développé de projet comme vous le souhaitez",
         image: "../../assets/faces/me.svg",
         danger: danger.NORMAL,
         affect: affect.TEAM,

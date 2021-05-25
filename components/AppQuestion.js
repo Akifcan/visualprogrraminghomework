@@ -67,6 +67,7 @@ template.innerHTML = `
     </div>
 
 `
+//component
 import { save, get, preferredLanguage, resetGame, generateRandomQuestion, getFirstQuestion, getStatus, saveStatus } from '../utils.js'
 class AppQuestion extends HTMLElement {
     constructor() {

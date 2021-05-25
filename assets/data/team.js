@@ -21,7 +21,7 @@ export const team = [
     },
     {
         name: 'Dev Ed',
-        image: '004-girl.svg',
+        image: '011-boy.svg',
         title: 'Fronted developer'
     },
     {

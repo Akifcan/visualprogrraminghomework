@@ -26,6 +26,7 @@ template.innerHTML = `
         <slot name="content"></slot>
     </div>
 `
+//component
 class AppActions extends HTMLElement {
     constructor() {
         super()

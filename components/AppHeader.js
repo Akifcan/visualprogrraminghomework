@@ -75,6 +75,7 @@ const headerHTML = `
             <img />
         </picutre>
 `
+//component
 class AppHeader extends HTMLElement {
     constructor() {
         super();

@@ -35,12 +35,13 @@ template.innerHTML = `
         <h1 class="logo">Seaapi</h1>
         <img alt="you" />
         <h3>Username</h3>
-        <p>Scholl:</p>
+        <p>School</p>
         <img src="../../assets/icons/yasaruni.png" />
     </div>
 
 `
 import { get } from '../utils.js'
+//component
 class AppCard extends HTMLElement {
     constructor() {
         super()

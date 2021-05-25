@@ -78,6 +78,7 @@ const innerHTML = `
         <p id="directors" class="status-item"></p>
     </div>
 `
+//component
 class AppFooter extends HTMLElement {
 
     constructor() {

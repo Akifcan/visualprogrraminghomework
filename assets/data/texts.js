@@ -24,8 +24,8 @@ export const texts = {
     officeRoomen: 'Office',
     officeRoomfr: 'Le Bureu',
     funRoomtr: 'Eğlence Odası',
-    funRoomen: 'Eğlence Odası',
-    funRoomfr: 'Eğlence Odası',
+    funRoomen: 'Fun Room',
+    funRoomfr: 'Chambré de amusant',
     myTeamtr: 'Takımım',
     myTeamen: 'My team',
     myTeamfr: "Mon l'equip",
@@ -49,5 +49,5 @@ export const texts = {
     "okfr": "D'accord",
     "continuetr": "Devam et",
     "continueen": "Continue",
-    "continefr": "Continuer"
+    "continuefr": "Continuer"
 }

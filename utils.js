@@ -1,10 +1,10 @@
 import { questions } from './assets/data/questions.js'
 
-export const save = (key, value) => {
+export const save = (key, value) => { //save to localstorage
     localStorage[key] = value
 }
 
-export const get = (key) => {
+export const get = (key) => { //get localstorage with object format
     return JSON.parse(localStorage[key])
 }
 
@@ -24,12 +24,12 @@ export const isLoggedIn = _ => {
     }
 }
 
-export const generateRandomQuestion = () => {
+export const generateRandomQuestion = () => { //generate random question except first question
     return questions.slice(1)[Math.floor(Math.random() * questions.slice(1).length)]
     // return questions[2]
 }
 
-export const getFirstQuestion = () => {
+export const getFirstQuestion = () => { //get only first question
     return questions[0]
 }
 
@@ -72,7 +72,7 @@ export const resetGame = (redirect = true, deleteUser = true) => {
     }
 }
 
-export const trueOrFalse = _ => {
+export const trueOrFalse = _ => { //for meeting result
     const booleans = [true, false]
     return booleans[Math.floor(Math.random() * booleans.length)]
 }

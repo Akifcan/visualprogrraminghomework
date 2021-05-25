@@ -1,12 +1,13 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
-// require('electron-reload')(__dirname);
+require('electron-reload')(__dirname);
 
 
 function createWindow() {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
+        icon: __dirname + '/enterprise.png',
         autoHideMenuBar: true,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')

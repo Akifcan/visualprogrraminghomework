@@ -14,7 +14,7 @@
 <body>
 
     <div class="alpha-container">
-        <h1>Story</h1>
+        <h1 id="story">Story</h1>
         <picture class="assistance tooltip" data-name="Céline">
             <img src="../assets/faces/assistance.svg" alt="assistance">
         </picture>
@@ -22,17 +22,17 @@
             <form>
                 <div class="input-group">
                     <input required placeholder=" " type="text">
-                    <p>Your Name *</p>
+                    <p id="your-name">Your Name *</p>
                 </div>
                 <div class="gender-container">
-                    <picture class="tooltip" data-name="Woman">
+                    <picture class="tooltip" id="woman-icon" data-name="Woman">
                         <img class="gender" src="../assets/faces/woman.svg" alt="woman">
                     </picture>
-                    <picture class="tooltip" data-name="Man">
+                    <picture class="tooltip" id="man-icon" data-name="Man">
                         <img class="gender" src="../assets/faces/man.svg" alt="man">
                     </picture>
                 </div>
-                <button>Continue</button>
+                <button id="continue">Continue</button>
             </form>
         </div>
         <div class="ballon">
@@ -50,7 +50,13 @@
             const form = document.querySelector('form')
             let gender
             const code = `${localStorage['language']}`
+            document.getElementById('story').textContent = texts[`storyTitle${code}`]
             document.querySelector('.text').innerHTML = texts[`story${code}`]
+            document.querySelector('.got-it').textContent = texts[`ok${code}`]
+            document.getElementById('your-name').textContent = texts[`yourName${code}`]
+            document.getElementById('woman-icon').setAttribute('data-name', texts[`genderWoman${code}`])
+            document.getElementById('man-icon').setAttribute('data-name', texts[`genderMan${code}`])
+            document.getElementById('continue').textContent = texts[`continue${code}`]
             document.querySelector('.gender-container').addEventListener('click', e => {
                 if (document.querySelector('.gender.active-gender')) {
                     document.querySelector('.gender.active-gender').classList.remove('active-gender')

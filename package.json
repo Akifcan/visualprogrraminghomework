@@ -13,7 +13,8 @@
       "category": "com.seaapi.managecompany.game"
     },
     "win": {
-      "target": "portable"
+      "target": "portable",
+      "icon": "enterprise.png"
     },
     "portable": {
       "unicode": false,
